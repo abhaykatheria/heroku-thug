@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Meta Tags for Bootstrap 4 -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap 4 CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        /* Header Parallax Element Style*/
+        .paral {
+            min-height: 800px;
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: 50% 50%;
+        }
+
+        /* Paragrapgh for Parallax Section */
+        .paral p {
+            font-size: 24px;
+            color: #f5f5f5;
+            text-align: center;
+            line-height: 60px;
+        }
+
+        /* Heading for Parallax Section */
+        .paral h1 {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 100px;
+            text-align: center;
+            padding-top: 60px;
+            line-height: 100px;
+        }
+
+        /* Image for Parallax Section */
+        .paralsec {
+            background-image: url("https://www.solidbackgrounds.com/images/1920x1080/1920x1080-black-solid-color-background.jpg");
+        }
+
+        .paralsec1 {
+            background-image: url("https://www.solidbackgrounds.com/images/1920x1080/1920x1080-black-solid-color-background.jpg");
+        }
+
+        .paralsec2 {
+            background-image: url("https://www.solidbackgrounds.com/images/1920x1080/1920x1080-black-solid-color-background.jpg");
+        }
+
+        /* Add more images for more sections */
+
+        /* Remove Bottom Margin from Jumbotron */
+        .jumbotron {
+            margin-bottom: 0;
+        }
+
+        /* Footer */
+        .wn-footer {
+            padding: 2.5rem 0;
+            text-align: center;
+            color: white;
+            background-color: #607D8B;
+            border-top: .05rem solid #e5e5e5;
+        }
+
+        .wn-footer a {
+            color: yellow;
+        }
+
+        #my_camera {
+            width: 320px;
+            height: 500px;
+            border: 1px solid black;
+        }
+
+        .results {
+            width: 0px;
+            height: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <script type="text/javascript" src="site_media/newjs/webcam.js"></script>
+    <script language="JavaScript">
+
+        function configure() {
+            Webcam.set({
+                width: 320,
+                height: 240,
+                dest_width: 640,
+                dest_height: 480,
+                image_format: 'jpeg',
+                jpeg_quality: 90,
+                force_flash: false
+                        });
+            Webcam.attach('#my_camera');
+        }
+        // A button for taking snaps
+
+        function someFunc() {
+
+            take_snapshot();
+            saveSnap();
+            view_result();
+
+        }
+
+
+        function view_result() {
+            var x = document.getElementById("final");
+            document.getElementById("rdiv").removeChild(x);
+            document.getElementById('rdiv').innerHTML = '<img id="final" src="site_media/webcamimages/output.jpg"/>';
+        }
+        // preload shutter audio clip
+        var shutter = new Audio();
+        shutter.autoplay = false;
+        shutter.src = navigator.userAgent.match(/Firefox/) ? 'shutter.ogg' : 'shutter.mp3';
+
+        function take_snapshot() {
+            // play sound effect
+            shutter.play();
+
+            // take snapshot and get image data
+            Webcam.snap(function (data_uri) {
+                // display results in page
+                document.getElementById('results').innerHTML = '<img style="display:none " id= "imageprev" src="' + data_uri + '"/>';
+            });
+
+            Webcam.reset();
+        }
+
+        function saveSnap() {
+            // Get base64 value from <img id='imageprev'> source
+            var base64image = document.getElementById("imageprev").src;
+            console.log(base64image);
+            Webcam.upload(base64image, 'save_image/', function (code, text) {
+                console.log('Save successfully');
+                //console.log(text);
+            });
+
+        }
+    </script>
+
+
+    <!-- First Parallax Section -->
+
+    <div class="jumbotron paral paralsec">
+        <h1 class="display-10"><b>BE A THUG BITCH !</b></h1>
+        <br>
+        <p class="lead">ML POWERED THUG MAKER</p>
+        <p class="lead">
+            <a class="btn btn-info btn-lg btn-md" href="#camera" role="#">go now</a>
+        </p>
+    </div>
+
+    <!-- Second Parallax Section -->
+    <div class="jumbotron paral paralsec1" id="camera">
+        <!-- First, include the JPEGCam JavaScript Library -->
+        <center>
+            <div id="my_camera"></div>
+            
+            <input type=button value="Camera On" onClick="configure()">
+            <input type=button value="Take Snapshot" onClick="someFunc()">
+            <input type=button value="See result">
+        </center>
+    </div>
+
+    <!-- Third Parallax Section -->
+    <div class="jumbotron paral paralsec2" id="second">
+        <center>
+            <div class="container-fluid">
+                <div id="results" class="results"></div>
+                <div id="rdiv"></div>
+                <br>
+                <br>
+                <center>
+                    <a download="http://localhost:8000/site_media/output.jpg" class="btn btn-success btn-lg">
+                        <span class="glyphicon glyphicon-download"></span>download
+                    </a></center>
+            </div>
+    </div>
+
+    <!-- Add More Parallax Sections Here -->
+    <!-- Footer Section -->
+    <footer class="wn-footer">
+        <p>This is webs created by <a href="github.com/abhaykatheria">abhay</a> and <a href="github.com/m1-key">
+                mickey</a></p>
+        <p>
+            <a href="#">Back to top</a>
+        </p>
+    </footer>
+    <!-- Bootstrap 4 Scripts -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
+</body>
+
+</html>
