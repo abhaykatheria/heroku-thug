@@ -12,7 +12,7 @@ colorama==0.4.1
 constantly==15.1.0
 cryptography==2.7
 daphne==2.3.0
-Django==2.2.4
+Django==2.2.13
 django-heroku
 Flask==1.1.1
 gunicorn
