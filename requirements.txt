@@ -10,7 +10,7 @@ channels==2.1.2
 Click==7.0
 colorama==0.4.1
 constantly==15.1.0
-cryptography==2.7
+cryptography==3.2
 daphne==2.3.0
 Django==2.2.13
 django-heroku
